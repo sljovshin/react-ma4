@@ -7,18 +7,18 @@ export default function RecipeList (){
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [filter, setFilter] = useState(null);
+    const [filter, setFilter] = useState('');
 
     useEffect(() => {
         fetch('https://cors-anywhere.herokuapp.com/http://www.recipepuppy.com/api/')
         .then(res => res.json())
         .then(json => setData(json.results))
-        .catch(setData('error loading data'))
+        .catch(setData(null))
         .finally(() => setLoading(false));
     }, []);
 
     const filterData = (text) => {
-        if(text === '') text = null;
+        if(!text) text = '';
         setFilter(text);
     }
 
@@ -29,10 +29,10 @@ export default function RecipeList (){
         <SearchRecipe filter={filterData}/>
         {
         data.map((item, index) => (
-            filter === null 
+            filter === '' 
             ? <RecipeItem key={index} data={item} /> 
             : (
-                item.title.toLowerCase().includes(filter) ? <RecipeItem key={index} data={item} /> : null
+                item.title.toLowerCase().includes(filter.toLowerCase()) ? <RecipeItem key={index} data={item} /> : null
             )
         ))
         }
