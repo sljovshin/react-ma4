@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 
 export default function SearchRecipe({filter}){
+
        
     return (
         <>
@@ -9,4 +11,10 @@ export default function SearchRecipe({filter}){
         </>
     ) 
 
+}
+
+
+
+SearchRecipe.propTypes = {
+    filter: PropTypes.func
 }
